@@ -27,7 +27,8 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Four packages exist under `src/` (banking_client, mcp_server, agent, common) each with `__init__.py`; mcp_server and agent contain only `__init__.py`
   3. `mypy --strict src/` reports zero errors on the skeleton
   4. `ruff check src/` and `ruff format --check src/` report zero violations
-**Plans**: TBD
+**Plans**: 1 plan
+- [ ] 01-01-PLAN.md — Walking Skeleton: pyproject.toml (hatchling, strict mypy/ruff/pytest, mcp pin) + four src-layout packages with typed __init__, py.typed markers, common stubs; uv sync + mypy + ruff pass green
 
 ### Phase 2: CI, Hooks, Docs & Verification
 **Goal**: A reviewer can push to GitHub and watch CI pass green on Python 3.12 and 3.13, with pre-commit hooks mirroring CI checks and contributor docs in place
