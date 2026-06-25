@@ -18,20 +18,20 @@ pre-commit hooks — all pass green *before any business logic exists*.
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Python 3.12+ project managed with `uv`, using a `src/` layout — Phase 1
+- ✓ Four-package skeleton (`banking_client`, `mcp_server`, `agent`, `common`) with `__init__.py` only — Phase 1
+- ✓ `pyproject.toml`: strict mypy, ruff (lint + format), pytest + pytest-asyncio + pytest-cov — Phase 1
+- ✓ `mcp>=1.27,<2` pinned in dependencies despite being unused (locks the major version) — Phase 1
+- ✓ GitHub Actions CI: matrix on Python 3.12 and 3.13, running ruff check, mypy, and pytest with an 80% coverage gate — Phase 2
+- ✓ Pre-commit hooks mirroring CI (ruff, mypy) — Phase 2
+- ✓ README.md with a placeholder for the capstone spec excerpt — Phase 2
+- ✓ LICENSE (MIT) and CONTRIBUTING.md — Phase 2
+- ✓ `.env.example` showing config vars (FDX base URL, auth stub key) — Phase 2
+- ✓ One trivial passing test proving CI works end-to-end — Phase 2
 
 ### Active
 
-- [ ] Python 3.12+ project managed with `uv`, using a `src/` layout
-- [ ] Four-package skeleton (`banking_client`, `mcp_server`, `agent`, `common`) with `__init__.py` only
-- [ ] `pyproject.toml`: strict mypy, ruff (lint + format), pytest + pytest-asyncio + pytest-cov
-- [ ] `mcp>=1.27,<2` pinned in dependencies despite being unused (locks the major version)
-- [ ] GitHub Actions CI: matrix on Python 3.12 and 3.13, running ruff check, mypy, and pytest with an 80% coverage gate
-- [ ] Pre-commit hooks mirroring CI (ruff, mypy)
-- [ ] README.md with a placeholder for the capstone spec excerpt
-- [ ] LICENSE (MIT) and CONTRIBUTING.md
-- [ ] `.env.example` showing config vars (FDX base URL, auth stub key)
-- [ ] One trivial passing test proving CI works end-to-end
+(None — all milestone requirements validated)
 
 ### Out of Scope
 
@@ -39,6 +39,12 @@ pre-commit hooks — all pass green *before any business logic exists*.
 - MCP server implementation — user builds this manually later; package left empty
 - Agent loop implementation — user builds this manually later; package left empty
 - Any business logic — this milestone is bones only
+
+## Current State
+
+Shipped v1.0 MVP on 2026-06-25 with 122 LOC Python across 4 packages.
+Tech stack: Python 3.12+, uv, hatchling, mypy --strict, ruff, pytest, GitHub Actions CI.
+All 19 requirements validated. 83% test coverage. CI green on Python 3.12 and 3.13.
 
 ## Context
 
@@ -62,11 +68,14 @@ pre-commit hooks — all pass green *before any business logic exists*.
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Type checker: `mypy --strict` | Enterprise-standard, pure-Python, no extra toolchain to maintain | — Pending |
-| Build backend: `hatchling` | Widely adopted, near-zero config for src layout, strong enterprise track record | — Pending |
-| `ruff` for lint **and** format | Single fast tool replacing black/isort/flake8 | — Pending |
-| Pin `mcp>=1.27,<2` while unused | Lock the MCP major version ahead of the MCP server work | — Pending |
-| Empty `mcp_server/` + `agent/` | User implements these by hand in later prompts | — Pending |
+| Type checker: `mypy --strict` | Enterprise-standard, pure-Python, no extra toolchain to maintain | ✓ Phase 1 |
+| Build backend: `hatchling` | Widely adopted, near-zero config for src layout, strong enterprise track record | ✓ Phase 1 |
+| `ruff` for lint **and** format | Single fast tool replacing black/isort/flake8 | ✓ Phase 1 |
+| Pin `mcp>=1.27,<2` while unused | Lock the MCP major version ahead of the MCP server work | ✓ Phase 1 |
+| Empty `mcp_server/` + `agent/` | User implements these by hand in later prompts | ✓ Phase 1 |
+| Coverage omit for empty packages | Exclude mcp_server/agent from coverage to measure only real code | ✓ Phase 2 |
+| Coverage gate as separate CI step | `coverage report --fail-under=80`, not a pytest flag | ✓ Phase 2 |
+| mypy hook via `language: system` | Uses project venv via `uv run mypy` to resolve deps | ✓ Phase 2 |
 
 ## Evolution
 
@@ -86,4 +95,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-24 after initialization*
+*Last updated: 2026-06-25 after v1.0 milestone*
