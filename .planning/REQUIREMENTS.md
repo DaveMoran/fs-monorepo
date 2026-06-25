@@ -32,18 +32,18 @@ Requirements for the scaffolding milestone. Each maps to roadmap phases.
 
 ### Pre-commit Hooks
 
-- [ ] **HOOK-01**: `.pre-commit-config.yaml` runs `ruff` lint + format hooks
-- [ ] **HOOK-02**: `.pre-commit-config.yaml` runs the `mypy` type-check hook, mirroring CI
+- [x] **HOOK-01**: `.pre-commit-config.yaml` runs `ruff` lint + format hooks
+- [x] **HOOK-02**: `.pre-commit-config.yaml` runs the `mypy` type-check hook, mirroring CI
 
 ### Documentation & Licensing
 
-- [ ] **DOCS-01**: `README.md` includes a placeholder for the capstone spec excerpt
-- [ ] **DOCS-02**: `LICENSE` file contains the MIT license
-- [ ] **DOCS-03**: `CONTRIBUTING.md` provides contributor guidance (setup, checks, workflow)
+- [x] **DOCS-01**: `README.md` includes a placeholder for the capstone spec excerpt
+- [x] **DOCS-02**: `LICENSE` file contains the MIT license
+- [x] **DOCS-03**: `CONTRIBUTING.md` provides contributor guidance (setup, checks, workflow)
 
 ### Configuration
 
-- [ ] **CONF-01**: `.env.example` documents the config vars (FDX base URL, auth stub key)
+- [x] **CONF-01**: `.env.example` documents the config vars (FDX base URL, auth stub key)
 
 ### Verification
 
@@ -97,12 +97,12 @@ Which phases cover which requirements. Populated during roadmap creation.
 | CI-02 | Phase 2 | Complete |
 | CI-03 | Phase 2 | Complete |
 | CI-04 | Phase 2 | Complete |
-| HOOK-01 | Phase 2 | Pending |
-| HOOK-02 | Phase 2 | Pending |
-| DOCS-01 | Phase 2 | Pending |
-| DOCS-02 | Phase 2 | Pending |
-| DOCS-03 | Phase 2 | Pending |
-| CONF-01 | Phase 2 | Pending |
+| HOOK-01 | Phase 2 | Complete |
+| HOOK-02 | Phase 2 | Complete |
+| DOCS-01 | Phase 2 | Complete |
+| DOCS-02 | Phase 2 | Complete |
+| DOCS-03 | Phase 2 | Complete |
+| CONF-01 | Phase 2 | Complete |
 | TEST-01 | Phase 2 | Complete |
 
 **Coverage:**
