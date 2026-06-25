@@ -25,10 +25,10 @@ Requirements for the scaffolding milestone. Each maps to roadmap phases.
 
 ### Continuous Integration
 
-- [ ] **CI-01**: GitHub Actions workflow runs on a matrix of Python 3.12 and 3.13
-- [ ] **CI-02**: CI runs `ruff check` (lint)
-- [ ] **CI-03**: CI runs the `mypy --strict` type check
-- [ ] **CI-04**: CI runs `pytest` with coverage and fails when coverage drops below 80%
+- [x] **CI-01**: GitHub Actions workflow runs on a matrix of Python 3.12 and 3.13
+- [x] **CI-02**: CI runs `ruff check` (lint)
+- [x] **CI-03**: CI runs the `mypy --strict` type check
+- [x] **CI-04**: CI runs `pytest` with coverage and fails when coverage drops below 80%
 
 ### Pre-commit Hooks
 
@@ -47,7 +47,7 @@ Requirements for the scaffolding milestone. Each maps to roadmap phases.
 
 ### Verification
 
-- [ ] **TEST-01**: One trivial passing test proves the pytest + coverage pipeline works end-to-end
+- [x] **TEST-01**: One trivial passing test proves the pytest + coverage pipeline works end-to-end
 
 ## v2 Requirements
 
@@ -93,17 +93,17 @@ Which phases cover which requirements. Populated during roadmap creation.
 | TOOL-03 | Phase 1 | Complete |
 | TOOL-04 | Phase 1 | Complete |
 | TOOL-05 | Phase 1 | Complete |
-| CI-01 | Phase 2 | Pending |
-| CI-02 | Phase 2 | Pending |
-| CI-03 | Phase 2 | Pending |
-| CI-04 | Phase 2 | Pending |
+| CI-01 | Phase 2 | Complete |
+| CI-02 | Phase 2 | Complete |
+| CI-03 | Phase 2 | Complete |
+| CI-04 | Phase 2 | Complete |
 | HOOK-01 | Phase 2 | Pending |
 | HOOK-02 | Phase 2 | Pending |
 | DOCS-01 | Phase 2 | Pending |
 | DOCS-02 | Phase 2 | Pending |
 | DOCS-03 | Phase 2 | Pending |
 | CONF-01 | Phase 2 | Pending |
-| TEST-01 | Phase 2 | Pending |
+| TEST-01 | Phase 2 | Complete |
 
 **Coverage:**
 
