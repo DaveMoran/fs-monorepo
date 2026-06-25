@@ -25,29 +25,29 @@ Requirements for the scaffolding milestone. Each maps to roadmap phases.
 
 ### Continuous Integration
 
-- [ ] **CI-01**: GitHub Actions workflow runs on a matrix of Python 3.12 and 3.13
-- [ ] **CI-02**: CI runs `ruff check` (lint)
-- [ ] **CI-03**: CI runs the `mypy --strict` type check
-- [ ] **CI-04**: CI runs `pytest` with coverage and fails when coverage drops below 80%
+- [x] **CI-01**: GitHub Actions workflow runs on a matrix of Python 3.12 and 3.13
+- [x] **CI-02**: CI runs `ruff check` (lint)
+- [x] **CI-03**: CI runs the `mypy --strict` type check
+- [x] **CI-04**: CI runs `pytest` with coverage and fails when coverage drops below 80%
 
 ### Pre-commit Hooks
 
-- [ ] **HOOK-01**: `.pre-commit-config.yaml` runs `ruff` lint + format hooks
-- [ ] **HOOK-02**: `.pre-commit-config.yaml` runs the `mypy` type-check hook, mirroring CI
+- [x] **HOOK-01**: `.pre-commit-config.yaml` runs `ruff` lint + format hooks
+- [x] **HOOK-02**: `.pre-commit-config.yaml` runs the `mypy` type-check hook, mirroring CI
 
 ### Documentation & Licensing
 
-- [ ] **DOCS-01**: `README.md` includes a placeholder for the capstone spec excerpt
-- [ ] **DOCS-02**: `LICENSE` file contains the MIT license
-- [ ] **DOCS-03**: `CONTRIBUTING.md` provides contributor guidance (setup, checks, workflow)
+- [x] **DOCS-01**: `README.md` includes a placeholder for the capstone spec excerpt
+- [x] **DOCS-02**: `LICENSE` file contains the MIT license
+- [x] **DOCS-03**: `CONTRIBUTING.md` provides contributor guidance (setup, checks, workflow)
 
 ### Configuration
 
-- [ ] **CONF-01**: `.env.example` documents the config vars (FDX base URL, auth stub key)
+- [x] **CONF-01**: `.env.example` documents the config vars (FDX base URL, auth stub key)
 
 ### Verification
 
-- [ ] **TEST-01**: One trivial passing test proves the pytest + coverage pipeline works end-to-end
+- [x] **TEST-01**: One trivial passing test proves the pytest + coverage pipeline works end-to-end
 
 ## v2 Requirements
 
@@ -93,17 +93,17 @@ Which phases cover which requirements. Populated during roadmap creation.
 | TOOL-03 | Phase 1 | Complete |
 | TOOL-04 | Phase 1 | Complete |
 | TOOL-05 | Phase 1 | Complete |
-| CI-01 | Phase 2 | Pending |
-| CI-02 | Phase 2 | Pending |
-| CI-03 | Phase 2 | Pending |
-| CI-04 | Phase 2 | Pending |
-| HOOK-01 | Phase 2 | Pending |
-| HOOK-02 | Phase 2 | Pending |
-| DOCS-01 | Phase 2 | Pending |
-| DOCS-02 | Phase 2 | Pending |
-| DOCS-03 | Phase 2 | Pending |
-| CONF-01 | Phase 2 | Pending |
-| TEST-01 | Phase 2 | Pending |
+| CI-01 | Phase 2 | Complete |
+| CI-02 | Phase 2 | Complete |
+| CI-03 | Phase 2 | Complete |
+| CI-04 | Phase 2 | Complete |
+| HOOK-01 | Phase 2 | Complete |
+| HOOK-02 | Phase 2 | Complete |
+| DOCS-01 | Phase 2 | Complete |
+| DOCS-02 | Phase 2 | Complete |
+| DOCS-03 | Phase 2 | Complete |
+| CONF-01 | Phase 2 | Complete |
+| TEST-01 | Phase 2 | Complete |
 
 **Coverage:**
 
