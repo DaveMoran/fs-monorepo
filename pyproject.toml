@@ -53,3 +53,13 @@ convention = "google"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "src/mcp_server/*",
+    "src/agent/*",
+]
+
+[tool.coverage.report]
+show_missing = true

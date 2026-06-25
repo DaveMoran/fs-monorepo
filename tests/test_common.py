@@ -1,7 +1,8 @@
-"""Tests for the common package stubs."""
+"""Tests for the common and banking_client package stubs."""
 
 from __future__ import annotations
 
+import banking_client
 from common import OpenBankingError, __version__
 from common.config import get_config
 from common.errors import AuthenticationError, ConfigurationError
@@ -27,3 +28,8 @@ def test_error_hierarchy() -> None:
     """Verify error classes are subclasses of OpenBankingError."""
     assert issubclass(ConfigurationError, OpenBankingError)
     assert issubclass(AuthenticationError, OpenBankingError)
+
+
+def test_banking_client_version_is_string() -> None:
+    """Verify banking_client.__version__ is a string."""
+    assert isinstance(banking_client.__version__, str)
