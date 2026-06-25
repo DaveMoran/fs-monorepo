@@ -48,7 +48,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. One trivial test exists and passes, producing coverage at or above 80%
   4. README.md, LICENSE (MIT), CONTRIBUTING.md, and .env.example all exist with appropriate content
 
-**Plans**: TBD
+**Plans**: 2 plans
+
+- [ ] 02-01-PLAN.md — Verification slice: trivial test on common/, coverage config (omit empty packages), and the CI workflow (3.12/3.13 matrix, ruff/mypy/pytest, 80% gate)
+- [ ] 02-02-PLAN.md — Pre-commit hooks (ruff + local mypy), MIT LICENSE, structured README with CI badge, CONTRIBUTING guide, and .env.example
 
 ## Progress
 
@@ -58,4 +61,4 @@ Phases execute in numeric order: 1 -> 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Package Skeleton & Tooling | 1/1 | Complete    | 2026-06-25 |
-| 2. CI, Hooks, Docs & Verification | 0/0 | Not started | - |
+| 2. CI, Hooks, Docs & Verification | 0/2 | Planned     | - |
