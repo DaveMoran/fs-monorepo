@@ -9,19 +9,19 @@ Requirements for the scaffolding milestone. Each maps to roadmap phases.
 
 ### Package Structure
 
-- [ ] **PKG-01**: Project is a Python 3.12+ package managed with `uv`, using a `src/` layout
-- [ ] **PKG-02**: `src/banking_client/` exists as a package with `__init__.py` only (skeleton, no logic)
-- [ ] **PKG-03**: `src/mcp_server/` exists as a package with `__init__.py` only (intentionally empty)
-- [ ] **PKG-04**: `src/agent/` exists as a package with `__init__.py` only (intentionally empty)
-- [ ] **PKG-05**: `src/common/` exists as a package with `__init__.py` plus scaffolding for shared logging, config, and errors
+- [x] **PKG-01**: Project is a Python 3.12+ package managed with `uv`, using a `src/` layout
+- [x] **PKG-02**: `src/banking_client/` exists as a package with `__init__.py` only (skeleton, no logic)
+- [x] **PKG-03**: `src/mcp_server/` exists as a package with `__init__.py` only (intentionally empty)
+- [x] **PKG-04**: `src/agent/` exists as a package with `__init__.py` only (intentionally empty)
+- [x] **PKG-05**: `src/common/` exists as a package with `__init__.py` plus scaffolding for shared logging, config, and errors
 
 ### Tooling & Dependencies
 
-- [ ] **TOOL-01**: `pyproject.toml` declares the `hatchling` build backend wired for the src layout
-- [ ] **TOOL-02**: `mypy --strict` is configured in `pyproject.toml`
-- [ ] **TOOL-03**: `ruff` is configured for both linting and formatting
-- [ ] **TOOL-04**: `pytest` + `pytest-asyncio` + `pytest-cov` are configured (asyncio mode auto)
-- [ ] **TOOL-05**: `mcp>=1.27,<2` is pinned in dependencies even though it is unused
+- [x] **TOOL-01**: `pyproject.toml` declares the `hatchling` build backend wired for the src layout
+- [x] **TOOL-02**: `mypy --strict` is configured in `pyproject.toml`
+- [x] **TOOL-03**: `ruff` is configured for both linting and formatting
+- [x] **TOOL-04**: `pytest` + `pytest-asyncio` + `pytest-cov` are configured (asyncio mode auto)
+- [x] **TOOL-05**: `mcp>=1.27,<2` is pinned in dependencies even though it is unused
 
 ### Continuous Integration
 
@@ -83,16 +83,16 @@ Which phases cover which requirements. Populated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PKG-01 | Phase 1 | Pending |
-| PKG-02 | Phase 1 | Pending |
-| PKG-03 | Phase 1 | Pending |
-| PKG-04 | Phase 1 | Pending |
-| PKG-05 | Phase 1 | Pending |
-| TOOL-01 | Phase 1 | Pending |
-| TOOL-02 | Phase 1 | Pending |
-| TOOL-03 | Phase 1 | Pending |
-| TOOL-04 | Phase 1 | Pending |
-| TOOL-05 | Phase 1 | Pending |
+| PKG-01 | Phase 1 | Complete |
+| PKG-02 | Phase 1 | Complete |
+| PKG-03 | Phase 1 | Complete |
+| PKG-04 | Phase 1 | Complete |
+| PKG-05 | Phase 1 | Complete |
+| TOOL-01 | Phase 1 | Complete |
+| TOOL-02 | Phase 1 | Complete |
+| TOOL-03 | Phase 1 | Complete |
+| TOOL-04 | Phase 1 | Complete |
+| TOOL-05 | Phase 1 | Complete |
 | CI-01 | Phase 2 | Pending |
 | CI-02 | Phase 2 | Pending |
 | CI-03 | Phase 2 | Pending |
@@ -106,6 +106,7 @@ Which phases cover which requirements. Populated during roadmap creation.
 | TEST-01 | Phase 2 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 19 total
 - Mapped to phases: 19/19
 - Unmapped: 0
