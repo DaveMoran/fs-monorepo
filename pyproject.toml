@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "open-banking-mcp"
+version = "0.1.0"
+description = "Open Banking MCP Capstone"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp>=1.27,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.16",
+    "ruff>=0.11",
+    "pytest>=8",
+    "pytest-asyncio>=1",
+    "pytest-cov>=7",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "src/banking_client",
+    "src/mcp_server",
+    "src/agent",
+    "src/common",
+]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
+packages = [
+    "banking_client",
+    "mcp_server",
+    "agent",
+    "common",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
