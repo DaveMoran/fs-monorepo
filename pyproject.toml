@@ -63,3 +63,8 @@ omit = [
 
 [tool.coverage.report]
 show_missing = true
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.6.0",
+]
