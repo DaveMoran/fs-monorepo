@@ -32,18 +32,19 @@ packages = [
 [tool.mypy]
 strict = true
 python_version = "3.12"
-mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
+mypy_path = "$MYPY_CONFIG_FILE_DIR/src:$MYPY_CONFIG_FILE_DIR"
 packages = [
     "banking_client",
     "mcp_server",
     "agent",
     "common",
+    "fixtures",
 ]
 
 [tool.ruff]
 target-version = "py312"
 line-length = 120
-src = ["src"]
+src = ["src", "fixtures"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM", "D"]
@@ -54,12 +55,15 @@ convention = "google"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+# Put the repo root on sys.path so the top-level (non-installed) fixtures package imports.
+pythonpath = ["."]
 
 [tool.coverage.run]
 source = ["src"]
 omit = [
     "src/mcp_server/*",
     "src/agent/*",
+    "fixtures/*",
 ]
 
 [tool.coverage.report]

@@ -1,0 +1,110 @@
+{
+  "id": "cust-003",
+  "name": "Sam Okafor",
+  "accounts": [
+    {
+      "id": "cust-003-checking",
+      "accountType": "CHECKING",
+      "accountNumberDisplay": "****3001",
+      "nickname": "Main Checking",
+      "status": "OPEN",
+      "currency": "USD",
+      "balances": [
+        {
+          "balanceType": "AVAILABLE",
+          "amount": {
+            "value": "14010.37",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        },
+        {
+          "balanceType": "CURRENT",
+          "amount": {
+            "value": "14076.70",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cust-003-savings",
+      "accountType": "SAVINGS",
+      "accountNumberDisplay": "****3002",
+      "nickname": "High-Yield Savings",
+      "status": "OPEN",
+      "currency": "USD",
+      "balances": [
+        {
+          "balanceType": "AVAILABLE",
+          "amount": {
+            "value": "15600.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        },
+        {
+          "balanceType": "CURRENT",
+          "amount": {
+            "value": "15600.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cust-003-card",
+      "accountType": "CREDIT_CARD",
+      "accountNumberDisplay": "****3003",
+      "nickname": "Travel Card",
+      "status": "OPEN",
+      "currency": "USD",
+      "balances": [
+        {
+          "balanceType": "AVAILABLE",
+          "amount": {
+            "value": "750.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        },
+        {
+          "balanceType": "CURRENT",
+          "amount": {
+            "value": "750.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cust-003-retirement",
+      "accountType": "INVESTMENT",
+      "accountNumberDisplay": "****3004",
+      "nickname": "401(k)",
+      "status": "OPEN",
+      "currency": "USD",
+      "balances": [
+        {
+          "balanceType": "AVAILABLE",
+          "amount": {
+            "value": "48000.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        },
+        {
+          "balanceType": "CURRENT",
+          "amount": {
+            "value": "48000.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        }
+      ]
+    }
+  ]
+}

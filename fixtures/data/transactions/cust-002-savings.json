@@ -1,0 +1,441 @@
+{
+  "page": {
+    "total": 24,
+    "nextOffset": null,
+    "prevOffset": null
+  },
+  "items": [
+    {
+      "id": "cust-002-savings-txn-00000",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2024-07-03T00:00:00Z",
+      "transactionTimestamp": "2024-07-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00001",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2024-08-03T00:00:00Z",
+      "transactionTimestamp": "2024-08-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00002",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2024-09-03T00:00:00Z",
+      "transactionTimestamp": "2024-09-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00003",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2024-10-03T00:00:00Z",
+      "transactionTimestamp": "2024-10-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00004",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2024-11-03T00:00:00Z",
+      "transactionTimestamp": "2024-11-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00005",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2024-12-03T00:00:00Z",
+      "transactionTimestamp": "2024-12-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00006",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-01-03T00:00:00Z",
+      "transactionTimestamp": "2025-01-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00007",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-02-03T00:00:00Z",
+      "transactionTimestamp": "2025-02-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00008",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-03-03T00:00:00Z",
+      "transactionTimestamp": "2025-03-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00009",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-04-03T00:00:00Z",
+      "transactionTimestamp": "2025-04-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00010",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-05-03T00:00:00Z",
+      "transactionTimestamp": "2025-05-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00011",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-06-03T00:00:00Z",
+      "transactionTimestamp": "2025-06-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00012",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-07-03T00:00:00Z",
+      "transactionTimestamp": "2025-07-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00013",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-08-03T00:00:00Z",
+      "transactionTimestamp": "2025-08-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00014",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-09-03T00:00:00Z",
+      "transactionTimestamp": "2025-09-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00015",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-10-03T00:00:00Z",
+      "transactionTimestamp": "2025-10-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00016",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-11-03T00:00:00Z",
+      "transactionTimestamp": "2025-11-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00017",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2025-12-03T00:00:00Z",
+      "transactionTimestamp": "2025-12-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00018",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2026-01-03T00:00:00Z",
+      "transactionTimestamp": "2026-01-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00019",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2026-02-03T00:00:00Z",
+      "transactionTimestamp": "2026-02-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00020",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2026-03-03T00:00:00Z",
+      "transactionTimestamp": "2026-03-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00021",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2026-04-03T00:00:00Z",
+      "transactionTimestamp": "2026-04-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00022",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2026-05-03T00:00:00Z",
+      "transactionTimestamp": "2026-05-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    },
+    {
+      "id": "cust-002-savings-txn-00023",
+      "accountId": "cust-002-savings",
+      "amount": {
+        "value": "400.00",
+        "currency": "USD"
+      },
+      "postedTimestamp": "2026-06-03T00:00:00Z",
+      "transactionTimestamp": "2026-06-03T00:00:00Z",
+      "description": "TRANSFER FROM CHECKING",
+      "debitCreditMemo": "CREDIT",
+      "category": {
+        "id": "CAT-TRANSFER",
+        "name": "Transfer"
+      },
+      "status": "POSTED",
+      "payee": "INTERNAL TRANSFER"
+    }
+  ]
+}
