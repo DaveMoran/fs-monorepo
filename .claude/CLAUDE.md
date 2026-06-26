@@ -54,17 +54,16 @@ No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skill
 
 <!-- GSD:workflow-start source:GSD defaults -->
 
-## GSD Workflow Enforcement
+## Workflow
 
-Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
+GSD was used only to bootstrap the repository. Going forward, feature work uses
+**plan mode**, not GSD commands.
 
-Use these entry points:
-
-- `/gsd-quick` for small fixes, doc updates, and ad-hoc tasks
-- `/gsd-debug` for investigation and bug fixing
-- `/gsd-execute-phase` for planned phase work
-
-Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+- Start non-trivial work in plan mode: research, then present a plan for approval before
+  editing.
+- **All work happens on a feature branch** — never commit feature work directly to `main`.
+  Branch off `main` (e.g. `feat/<short-name>`) before making changes.
+- GSD slash commands are no longer the required entry point for edits.
 <!-- GSD:workflow-end -->
 
 <!-- GSD:profile-start -->
