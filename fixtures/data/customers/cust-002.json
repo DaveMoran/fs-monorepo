@@ -1,0 +1,84 @@
+{
+  "id": "cust-002",
+  "name": "Jordan Patel",
+  "accounts": [
+    {
+      "id": "cust-002-checking",
+      "accountType": "CHECKING",
+      "accountNumberDisplay": "****2001",
+      "nickname": "Primary Checking",
+      "status": "OPEN",
+      "currency": "USD",
+      "balances": [
+        {
+          "balanceType": "AVAILABLE",
+          "amount": {
+            "value": "18566.78",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        },
+        {
+          "balanceType": "CURRENT",
+          "amount": {
+            "value": "18566.78",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cust-002-savings",
+      "accountType": "SAVINGS",
+      "accountNumberDisplay": "****2002",
+      "nickname": "Emergency Fund",
+      "status": "OPEN",
+      "currency": "USD",
+      "balances": [
+        {
+          "balanceType": "AVAILABLE",
+          "amount": {
+            "value": "15600.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        },
+        {
+          "balanceType": "CURRENT",
+          "amount": {
+            "value": "15600.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cust-002-card",
+      "accountType": "CREDIT_CARD",
+      "accountNumberDisplay": "****2003",
+      "nickname": "Rewards Card",
+      "status": "OPEN",
+      "currency": "USD",
+      "balances": [
+        {
+          "balanceType": "AVAILABLE",
+          "amount": {
+            "value": "750.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        },
+        {
+          "balanceType": "CURRENT",
+          "amount": {
+            "value": "750.00",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        }
+      ]
+    }
+  ]
+}

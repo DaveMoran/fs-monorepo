@@ -1,0 +1,32 @@
+{
+  "id": "cust-001",
+  "name": "Riley Nguyen",
+  "accounts": [
+    {
+      "id": "cust-001-checking",
+      "accountType": "CHECKING",
+      "accountNumberDisplay": "****1001",
+      "nickname": "Everyday Checking",
+      "status": "OPEN",
+      "currency": "USD",
+      "balances": [
+        {
+          "balanceType": "AVAILABLE",
+          "amount": {
+            "value": "2011.07",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        },
+        {
+          "balanceType": "CURRENT",
+          "amount": {
+            "value": "2011.07",
+            "currency": "USD"
+          },
+          "asOfDate": "2026-06-30T00:00:00Z"
+        }
+      ]
+    }
+  ]
+}
