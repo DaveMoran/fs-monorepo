@@ -87,7 +87,7 @@ PAYCHECK_TO_PAYCHECK = CustomerProfile(
     customer_id="cust-001",
     name="Riley Nguyen",
     accounts=(AccountSpec("checking", AccountType.CHECKING, "****1001", "Everyday Checking", is_primary=True),),
-    payroll=PayrollSpec(payee="ACME CORP PAYROLL", base_amount=Decimal("1850.00")),
+    payroll=PayrollSpec(payee="ACME CORP PAYROLL", base_amount=Decimal("925.00")),
     bills=(
         BillSpec(catalog.RENT, "SUNSET APARTMENTS", Decimal("1500.00"), day_of_month=1),
         BillSpec(catalog.UTILITIES, "CITY POWER & WATER", Decimal("140.00"), day_of_month=12, jitter=Decimal("35")),
@@ -111,8 +111,8 @@ FINANCIALLY_HEALTHY = CustomerProfile(
     ),
     payroll=PayrollSpec(
         payee="GLOBEX LLC PAYROLL",
-        base_amount=Decimal("3200.00"),
-        raise_amount=Decimal("3650.00"),
+        base_amount=Decimal("1800.00"),
+        raise_amount=Decimal("2050.00"),
         raise_after_fraction=0.6,
     ),
     bills=(
@@ -142,7 +142,7 @@ HIGH_ACTIVITY = CustomerProfile(
         AccountSpec("card", AccountType.CREDIT_CARD, "****3003", "Travel Card"),
         AccountSpec("retirement", AccountType.INVESTMENT, "****3004", "401(k)"),
     ),
-    payroll=PayrollSpec(payee="INITECH PAYROLL", base_amount=Decimal("4100.00")),
+    payroll=PayrollSpec(payee="INITECH PAYROLL", base_amount=Decimal("2350.00")),
     bills=(
         BillSpec(catalog.RENT, "HARBORVIEW TOWERS", Decimal("2650.00"), day_of_month=1),
         BillSpec(catalog.UTILITIES, "PACIFIC UTILITIES", Decimal("220.00"), day_of_month=9, jitter=Decimal("55")),
