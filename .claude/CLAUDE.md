@@ -61,8 +61,13 @@ GSD was used only to bootstrap the repository. Going forward, feature work uses
 
 - Start non-trivial work in plan mode: research, then present a plan for approval before
   editing.
+- **Always start from an up-to-date `main`.** Before creating a feature branch, pull the
+  latest `main` (e.g. `git switch main && git pull`) so the branch is cut from current HEAD.
 - **All work happens on a feature branch** — never commit feature work directly to `main`.
   Branch off `main` (e.g. `feat/<short-name>`) before making changes.
+- **Commit logically during the build, not all at the end.** Make small, coherent commits as
+  each unit of work completes (e.g. tooling config, then generator core, then tests) — do not
+  defer all commits until the code is fully written.
 - GSD slash commands are no longer the required entry point for edits.
 <!-- GSD:workflow-end -->
 
