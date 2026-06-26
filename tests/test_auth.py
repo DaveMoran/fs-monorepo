@@ -500,3 +500,40 @@ def test_scope_expiry_one_second_before_does_not_raise(tmp_path: Path) -> None:
     resolver = FixtureConsentResolver(path, now=lambda: now)
     scope = resolver.resolve("tok_close")
     assert scope.customer_id == "cust-close"
+
+
+# ---------------------------------------------------------------------------
+# Authorizer.authorize_scope (list-operation guard, no per-account check)
+# ---------------------------------------------------------------------------
+
+
+def test_authorize_scope_granted_cluster_returns_scope(tmp_path: Path) -> None:
+    """authorize_scope returns the scope when the cluster is in the consent grant."""
+    auth = _authorizer(tmp_path)
+    scope = auth.authorize_scope(_TOKEN_001, DataCluster.ACCOUNTS)
+    assert scope.customer_id == "cust-001"
+
+
+def test_authorize_scope_includes_account_ids_for_filtering(tmp_path: Path) -> None:
+    """The scope returned by authorize_scope carries account_ids for list filtering."""
+    auth = _authorizer(tmp_path)
+    scope = auth.authorize_scope(_TOKEN_002, DataCluster.ACCOUNTS)
+    assert "cust-002-checking" in scope.account_ids
+    assert "cust-002-savings" in scope.account_ids
+
+
+def test_authorize_scope_denied_cluster_raises_authorization_error(tmp_path: Path) -> None:
+    """authorize_scope raises AuthorizationError when the cluster is not in the grant."""
+    # _SCOPE_003_NARROW has ACCOUNTS + TRANSACTIONS but not INVESTMENTS.
+    auth = _authorizer(tmp_path)
+    with pytest.raises(AuthorizationError) as exc_info:
+        auth.authorize_scope(_TOKEN_003, DataCluster.INVESTMENTS)
+    assert exc_info.value.cluster == "INVESTMENTS"
+    assert exc_info.value.account_id is None  # no per-account context for list ops
+
+
+def test_authorize_scope_unknown_token_raises_authentication_error(tmp_path: Path) -> None:
+    """authorize_scope raises AuthenticationError for an unknown token."""
+    auth = _authorizer(tmp_path)
+    with pytest.raises(AuthenticationError):
+        auth.authorize_scope(_TOKEN_UNKNOWN, DataCluster.ACCOUNTS)

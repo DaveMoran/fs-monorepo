@@ -22,6 +22,13 @@ Failure modes
   resolver before any scope check runs).
 - :class:`~common.errors.AuthorizationError` — valid token but the requested
   ``(account_id, data_cluster)`` combination is outside the consent scope.
+
+List-operation guard
+--------------------
+:meth:`Authorizer.authorize_scope` handles collection endpoints (e.g. ``get_accounts``) that
+have no single ``account_id`` to check. It verifies the token is valid and that the requested
+data cluster is granted; callers then filter the returned account list to those ids listed in
+the scope.
 """
 
 from __future__ import annotations
@@ -87,6 +94,38 @@ class Authorizer:
                 customer_id=scope.customer_id,
                 reason="data cluster not in consent scope",
                 account_id=account_id,
+                cluster=str(cluster),
+            )
+
+        return scope
+
+    def authorize_scope(self, token: str, cluster: DataCluster) -> ConsentScope:
+        """Resolve a token and verify cluster access for a collection operation.
+
+        Used by list endpoints (e.g. ``get_accounts``) that have no single ``account_id`` to
+        check. Verifies the token is known and unexpired, then confirms the requested data
+        cluster is granted. Callers should then filter the returned data to the account ids
+        present in the scope.
+
+        Args:
+            token: Opaque bearer token from the caller.
+            cluster: The :class:`DataCluster` the caller wants to read.
+
+        Returns:
+            The :class:`~banking_client.auth.scope.ConsentScope` for *token*. Callers should
+            use ``scope.customer_id`` for data fetching and ``scope.account_ids`` for
+            filtering the result set.
+
+        Raises:
+            AuthenticationError: Token unknown or expired.
+            AuthorizationError: Data cluster not in consent scope.
+        """
+        scope: ConsentScope = self._resolver.resolve(token)
+
+        if cluster not in scope.data_clusters:
+            raise AuthorizationError(
+                customer_id=scope.customer_id,
+                reason="data cluster not in consent scope",
                 cluster=str(cluster),
             )
 

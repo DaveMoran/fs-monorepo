@@ -1,0 +1,51 @@
+{
+  "tok_cust_001": {
+    "consentId": "consent-001",
+    "customerId": "cust-001",
+    "accountIds": ["cust-001-checking"],
+    "dataClusters": ["ACCOUNTS", "TRANSACTIONS"],
+    "expiresAt": null
+  },
+  "tok_cust_002": {
+    "consentId": "consent-002",
+    "customerId": "cust-002",
+    "accountIds": ["cust-002-card", "cust-002-checking", "cust-002-savings"],
+    "dataClusters": ["ACCOUNTS", "TRANSACTIONS"],
+    "expiresAt": null
+  },
+  "tok_cust_003": {
+    "consentId": "consent-003",
+    "customerId": "cust-003",
+    "accountIds": ["cust-003-checking", "cust-003-savings"],
+    "dataClusters": ["ACCOUNTS", "TRANSACTIONS"],
+    "expiresAt": null
+  },
+  "tok_cust_001_empty": {
+    "consentId": "consent-001-empty",
+    "customerId": "cust-001",
+    "accountIds": [],
+    "dataClusters": ["ACCOUNTS"],
+    "expiresAt": null
+  },
+  "tok_cust_001_ghost": {
+    "consentId": "consent-001-ghost",
+    "customerId": "cust-001",
+    "accountIds": ["cust-001-checking", "cust-001-ghost"],
+    "dataClusters": ["ACCOUNTS", "TRANSACTIONS"],
+    "expiresAt": null
+  },
+  "tok_cust_003_txn_only": {
+    "consentId": "consent-003-txn",
+    "customerId": "cust-003",
+    "accountIds": ["cust-003-checking"],
+    "dataClusters": ["TRANSACTIONS"],
+    "expiresAt": null
+  },
+  "tok_expired": {
+    "consentId": "consent-expired",
+    "customerId": "cust-002",
+    "accountIds": ["cust-002-checking"],
+    "dataClusters": ["ACCOUNTS", "TRANSACTIONS"],
+    "expiresAt": "2020-01-01T00:00:00Z"
+  }
+}
