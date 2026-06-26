@@ -13,3 +13,4 @@ htmlcov/
 *.so
 .env
 .venv/
+.planning/research/.cache

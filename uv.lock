@@ -567,6 +567,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "mcp" },
+    { name = "pydantic" },
 ]
 
 [package.optional-dependencies]
@@ -587,6 +588,7 @@ dev = [
 requires-dist = [
     { name = "mcp", specifier = ">=1.27,<2" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.16" },
+    { name = "pydantic", specifier = ">=2,<3" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
     { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=1" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=7" },
