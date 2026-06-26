@@ -55,6 +55,8 @@ convention = "google"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+# Put the repo root on sys.path so the top-level (non-installed) fixtures package imports.
+pythonpath = ["."]
 
 [tool.coverage.run]
 source = ["src"]
