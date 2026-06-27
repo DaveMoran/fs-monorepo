@@ -1,38 +1,48 @@
-"""Deterministic income-determination analytics for Open Banking.
+"""Deterministic analytics services for Open Banking.
 
-This subpackage implements the analytics layer that infers a customer's regular income from FDX
-transaction history.  It is the deterministic, LLM-free layer that agents and eval harnesses
-reason about — every conclusion is grounded in transaction ids so callers can verify the
-reasoning.
+This subpackage implements two complementary analytics layers — income determination and
+spending analysis — both of which are the deterministic, LLM-free layer that agents and eval
+harnesses reason about.  Every conclusion is grounded in transaction ids so callers can verify
+the reasoning.
 
-1033 data-minimization contract
----------------------------------
-This subpackage intentionally limits itself to four transaction fields:
+1033 data-minimization contracts
+----------------------------------
+Each service applies its own minimization contract documented at the ``_to_*_event`` projection
+point in its module.  Key differences between the two:
 
-- ``amount`` (``tx.amount.value``)
-- ``posted_timestamp``
-- ``debit_credit_memo``
-- ``payee``
+**Income** (``income.py``) — reads **four** fields only:
+  ``amount``, ``posted_timestamp``, ``debit_credit_memo``, ``payee``.
+  ``category`` is **never read**; income is inferred structurally (cadence + amount stability +
+  counterparty exclusion).
 
-Plus ``id`` for explainability output only.  The fields ``category``, ``description``,
-``transaction_timestamp``, ``location``, and all others are **never read**.  Income is inferred
-*structurally* (cadence + amount stability + counterparty) rather than from provider-supplied
-categorization labels.
+**Spending** (``spending.py``) — reads **five** fields:
+  ``amount``, ``posted_timestamp``, ``debit_credit_memo``, ``payee``, **and** ``category``
+  (``id`` + ``name`` only — the primary aggregation dimension).
+  ``description``, ``transaction_timestamp``, and ``location`` are **never read** by either
+  service.
 
-Public surface
---------------
-- :class:`~banking_client.analytics.income.IncomeService` — the service; wire to
-  :class:`~banking_client.client.TransactionsClient` (+ optionally
-  :class:`~banking_client.client.AccountsClient` for ``account_id`` auto-discovery).
-- :func:`~banking_client.analytics.income.default_income_service` — factory wired to the
-  committed fixture data.
-- Result models: :class:`~banking_client.analytics.results.IncomeEstimate`,
+Public surface — income
+-----------------------
+- :class:`~banking_client.analytics.income.IncomeService`
+- :func:`~banking_client.analytics.income.default_income_service`
+- :class:`~banking_client.analytics.results.IncomeEstimate`,
   :class:`~banking_client.analytics.results.IncomeSource`,
-  :class:`~banking_client.analytics.results.RejectedCandidate`.
+  :class:`~banking_client.analytics.results.RejectedCandidate`
 - Enums: :class:`~banking_client.analytics.results.PayCadence`,
   :class:`~banking_client.analytics.results.ConfidenceLevel`,
   :class:`~banking_client.analytics.results.IncomeStatus`,
-  :class:`~banking_client.analytics.results.RejectionReason`.
+  :class:`~banking_client.analytics.results.RejectionReason`
+
+Public surface — spending
+-------------------------
+- :class:`~banking_client.analytics.spending.SpendingService`
+- :func:`~banking_client.analytics.spending.default_spending_service`
+- :class:`~banking_client.analytics.results.SpendingAnalysis`,
+  :class:`~banking_client.analytics.results.SpendCategorySummary`,
+  :class:`~banking_client.analytics.results.RecurringCost`,
+  :class:`~banking_client.analytics.results.NotableItem`
+- Enums: :class:`~banking_client.analytics.results.SpendingStatus`,
+  :class:`~banking_client.analytics.results.NotableKind`
 """
 
 from __future__ import annotations
@@ -43,12 +53,20 @@ from banking_client.analytics.results import (
     IncomeEstimate,
     IncomeSource,
     IncomeStatus,
+    NotableItem,
+    NotableKind,
     PayCadence,
+    RecurringCost,
     RejectedCandidate,
     RejectionReason,
+    SpendCategorySummary,
+    SpendingAnalysis,
+    SpendingStatus,
 )
+from banking_client.analytics.spending import SpendingService, default_spending_service
 
 __all__: list[str] = [
+    # Income
     "ConfidenceLevel",
     "IncomeEstimate",
     "IncomeService",
@@ -58,4 +76,13 @@ __all__: list[str] = [
     "RejectedCandidate",
     "RejectionReason",
     "default_income_service",
+    # Spending
+    "NotableItem",
+    "NotableKind",
+    "RecurringCost",
+    "SpendCategorySummary",
+    "SpendingAnalysis",
+    "SpendingService",
+    "SpendingStatus",
+    "default_spending_service",
 ]
