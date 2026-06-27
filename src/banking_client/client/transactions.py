@@ -99,9 +99,7 @@ def _in_date_window(
 
     if start_time is not None and posted < start_time:
         return False
-    if end_time is not None and posted > end_time:
-        return False
-    return True
+    return not (end_time is not None and posted > end_time)
 
 
 class TransactionsClient:

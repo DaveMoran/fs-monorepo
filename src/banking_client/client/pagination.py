@@ -23,12 +23,9 @@ Call :func:`paginate` with the *full sorted* list of items, the desired ``limit`
 from __future__ import annotations
 
 import base64
-from typing import TypeVar
 
 from banking_client.client.errors import InvalidPageCursorError
 from banking_client.models.pagination import PageMetadata, PaginatedResponse
-
-T = TypeVar("T")
 
 
 def _encode_cursor(offset: int) -> str:
@@ -68,7 +65,7 @@ def _decode_cursor(cursor: str, *, for_request: str) -> int:
         raise InvalidPageCursorError(cursor) from exc
 
 
-def paginate(
+def paginate[T](
     items: list[T],
     limit: int,
     page_key: str | None,

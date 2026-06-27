@@ -42,7 +42,11 @@ from banking_client.auth.clusters import DataCluster
 from banking_client.auth.guard import Authorizer, default_authorizer
 from banking_client.auth.scope import ConsentScope
 from banking_client.client.errors import AccountNotFoundError, InvalidPageCursorError  # noqa: F401 (re-exported)
-from banking_client.client.pagination import _decode_cursor, _encode_cursor, paginate
+from banking_client.client.pagination import (  # noqa: F401 (_decode_cursor/_encode_cursor re-exported for existing tests)
+    _decode_cursor,
+    _encode_cursor,
+    paginate,
+)
 from banking_client.client.source import AccountDataSource, FixtureAccountDataSource, default_fixture_data_dir
 from banking_client.models.account import Account, Balance
 from banking_client.models.pagination import PaginatedResponse
