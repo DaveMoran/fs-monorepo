@@ -804,9 +804,7 @@ async def test_integration_mid_history_raise_cust002() -> None:
 async def test_integration_freelance_not_primary_cust002_24mo() -> None:
     """cust-002 (24-month): Freelance payees (UPWORK/FIVERR/DIRECT CLIENT) never become primary."""
     svc = default_income_service(trail=AuditTrail(sink=ListSink()))
-    result = await svc.estimate_regular_income(
-        _TOKEN_002, "cust-002-checking", lookback_months=24, as_of=_ANCHOR
-    )
+    result = await svc.estimate_regular_income(_TOKEN_002, "cust-002-checking", lookback_months=24, as_of=_ANCHOR)
 
     assert result.status is IncomeStatus.DETECTED
     assert result.primary_source is not None
@@ -824,9 +822,7 @@ async def test_integration_freelance_not_primary_cust002_24mo() -> None:
 async def test_integration_freelance_not_primary_cust003_24mo() -> None:
     """cust-003 (24-month): Freelance deposits do not displace INITECH PAYROLL as primary."""
     svc = default_income_service(trail=AuditTrail(sink=ListSink()))
-    result = await svc.estimate_regular_income(
-        _TOKEN_003, "cust-003-checking", lookback_months=24, as_of=_ANCHOR
-    )
+    result = await svc.estimate_regular_income(_TOKEN_003, "cust-003-checking", lookback_months=24, as_of=_ANCHOR)
 
     assert result.status is IncomeStatus.DETECTED
     assert result.primary_source is not None

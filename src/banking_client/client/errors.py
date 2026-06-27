@@ -87,8 +87,6 @@ class InvalidDateRangeError(OpenBankingError):
             start_time: The start of the requested date window.
             end_time: The end of the requested date window.
         """
-        super().__init__(
-            f"start_time {start_time.isoformat()!r} is after end_time {end_time.isoformat()!r}"
-        )
+        super().__init__(f"start_time {start_time.isoformat()!r} is after end_time {end_time.isoformat()!r}")
         self.start_time = start_time
         self.end_time = end_time

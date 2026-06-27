@@ -335,11 +335,7 @@ def _analyze_amounts(amounts: list[Decimal]) -> _AmountAnalysis:
         )
 
     # Indices where a jump > AMOUNT_TOLERANCE occurs in the upward direction.
-    step_indices = [
-        i
-        for i in range(1, len(amounts))
-        if amounts[i] > amounts[i - 1] * (Decimal(1) + AMOUNT_TOLERANCE)
-    ]
+    step_indices = [i for i in range(1, len(amounts)) if amounts[i] > amounts[i - 1] * (Decimal(1) + AMOUNT_TOLERANCE)]
 
     if len(step_indices) == 1:
         k = step_indices[0]
@@ -767,9 +763,7 @@ class IncomeService:
             else:
                 rejected_from_single.append(result)
 
-        all_rejected: tuple[RejectedCandidate, ...] = tuple(
-            rejected_from_exclusion + rejected_from_single
-        )
+        all_rejected: tuple[RejectedCandidate, ...] = tuple(rejected_from_exclusion + rejected_from_single)
 
         # ------------------------------------------------------------------
         # 7. Assemble result.

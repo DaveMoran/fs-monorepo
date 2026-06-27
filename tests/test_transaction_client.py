@@ -95,9 +95,7 @@ def _scope(
         consent_id=f"consent-{customer_id}",
         customer_id=customer_id,
         account_ids=frozenset(account_ids),
-        data_clusters=frozenset(
-            clusters if clusters is not None else [DataCluster.ACCOUNTS, DataCluster.TRANSACTIONS]
-        ),
+        data_clusters=frozenset(clusters if clusters is not None else [DataCluster.ACCOUNTS, DataCluster.TRANSACTIONS]),
         expires_at=expires_at,
     )
 
@@ -371,9 +369,7 @@ async def test_get_transactions_token_with_txn_only_scope_succeeds() -> None:
 async def test_get_transactions_start_time_filters_earlier_transactions() -> None:
     """Transactions before start_time are excluded."""
     client = _client()
-    result = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", start_time=_JUN_2025
-    )
+    result = await client.get_transactions(_TOKEN_001, "cust-001-checking", start_time=_JUN_2025)
     for tx in result.items:
         assert tx.posted_timestamp is not None
         assert tx.posted_timestamp >= _JUN_2025
@@ -382,9 +378,7 @@ async def test_get_transactions_start_time_filters_earlier_transactions() -> Non
 async def test_get_transactions_end_time_filters_later_transactions() -> None:
     """Transactions after end_time are excluded."""
     client = _client()
-    result = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", end_time=_JUN_2025
-    )
+    result = await client.get_transactions(_TOKEN_001, "cust-001-checking", end_time=_JUN_2025)
     for tx in result.items:
         assert tx.posted_timestamp is not None
         assert tx.posted_timestamp <= _JUN_2025
@@ -407,18 +401,14 @@ async def test_get_transactions_closed_date_range_returns_matching_only() -> Non
 async def test_get_transactions_date_range_boundary_inclusive_start() -> None:
     """A transaction exactly on start_time is included."""
     client = _client()
-    result = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", start_time=_JAN_2025, end_time=_JAN_2025
-    )
+    result = await client.get_transactions(_TOKEN_001, "cust-001-checking", start_time=_JAN_2025, end_time=_JAN_2025)
     assert any(tx.id == _T_JAN.id for tx in result.items)
 
 
 async def test_get_transactions_date_range_boundary_inclusive_end() -> None:
     """A transaction exactly on end_time is included."""
     client = _client()
-    result = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", start_time=_JAN_2025, end_time=_JAN_2025
-    )
+    result = await client.get_transactions(_TOKEN_001, "cust-001-checking", start_time=_JAN_2025, end_time=_JAN_2025)
     assert any(tx.id == _T_JAN.id for tx in result.items)
 
 
@@ -463,9 +453,7 @@ async def test_get_transactions_date_range_total_reflects_filtered_count() -> No
 async def test_get_transactions_status_posted_returns_posted_only() -> None:
     """status=POSTED filters out pending transactions."""
     client = _client()
-    result = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", status=TransactionStatus.POSTED
-    )
+    result = await client.get_transactions(_TOKEN_001, "cust-001-checking", status=TransactionStatus.POSTED)
     assert result.items
     for tx in result.items:
         assert tx.status == TransactionStatus.POSTED
@@ -474,9 +462,7 @@ async def test_get_transactions_status_posted_returns_posted_only() -> None:
 async def test_get_transactions_status_pending_returns_pending_only() -> None:
     """status=PENDING filters out posted transactions."""
     client = _client()
-    result = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", status=TransactionStatus.PENDING
-    )
+    result = await client.get_transactions(_TOKEN_001, "cust-001-checking", status=TransactionStatus.PENDING)
     assert result.items
     for tx in result.items:
         assert tx.status == TransactionStatus.PENDING
@@ -497,9 +483,7 @@ async def test_get_transactions_status_posted_count_matches_posted_in_source() -
     all_result = await client.get_transactions(_TOKEN_001, "cust-001-checking")
     posted_count = sum(1 for tx in all_result.items if tx.status == TransactionStatus.POSTED)
 
-    posted_result = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", status=TransactionStatus.POSTED
-    )
+    posted_result = await client.get_transactions(_TOKEN_001, "cust-001-checking", status=TransactionStatus.POSTED)
     assert posted_result.page.total == posted_count
 
 
@@ -550,9 +534,7 @@ async def test_get_transactions_pagination_second_page_returns_different_items()
     client = _client()
     page1 = await client.get_transactions(_TOKEN_001, "cust-001-checking", limit=2)
     assert page1.page.next_offset is not None
-    page2 = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", limit=2, page_key=page1.page.next_offset
-    )
+    page2 = await client.get_transactions(_TOKEN_001, "cust-001-checking", limit=2, page_key=page1.page.next_offset)
     ids1 = {tx.id for tx in page1.items}
     ids2 = {tx.id for tx in page2.items}
     assert ids1.isdisjoint(ids2)
@@ -563,9 +545,7 @@ async def test_get_transactions_pagination_middle_page_has_both_offsets() -> Non
     client = _client()
     page1 = await client.get_transactions(_TOKEN_001, "cust-001-checking", limit=2)
     assert page1.page.next_offset is not None
-    page2 = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", limit=2, page_key=page1.page.next_offset
-    )
+    page2 = await client.get_transactions(_TOKEN_001, "cust-001-checking", limit=2, page_key=page1.page.next_offset)
     assert page2.page.next_offset is not None
     assert page2.page.prev_offset is not None
 
@@ -577,9 +557,7 @@ async def test_get_transactions_pagination_last_page_has_no_next_offset() -> Non
     page_key: str | None = None
     last_result = None
     for _ in range(len(_ALL_TXNS) + 1):  # Safety limit.
-        result = await client.get_transactions(
-            _TOKEN_001, "cust-001-checking", limit=2, page_key=page_key
-        )
+        result = await client.get_transactions(_TOKEN_001, "cust-001-checking", limit=2, page_key=page_key)
         last_result = result
         if result.page.next_offset is None:
             break
@@ -592,9 +570,7 @@ async def test_get_transactions_pagination_cursor_past_end_returns_empty() -> No
     """A cursor offset past the end of the result list returns empty items."""
     large_cursor = _encode_cursor(9999)
     client = _client()
-    result = await client.get_transactions(
-        _TOKEN_001, "cust-001-checking", page_key=large_cursor
-    )
+    result = await client.get_transactions(_TOKEN_001, "cust-001-checking", page_key=large_cursor)
     assert result.items == []
 
 
@@ -614,9 +590,7 @@ async def test_get_transactions_pagination_total_stable_across_pages() -> None:
     assert total is not None
     page_key: str | None = page1.page.next_offset
     while page_key is not None:
-        page = await client.get_transactions(
-            _TOKEN_001, "cust-001-checking", limit=2, page_key=page_key
-        )
+        page = await client.get_transactions(_TOKEN_001, "cust-001-checking", limit=2, page_key=page_key)
         assert page.page.total == total
         page_key = page.page.next_offset
 
@@ -796,9 +770,7 @@ async def test_get_transactions_multiple_calls_emit_one_event_each() -> None:
 async def test_fixture_source_returns_transactions_for_known_account() -> None:
     """FixtureTransactionDataSource returns a non-empty list for a committed account."""
     source = FixtureTransactionDataSource(default_fixture_data_dir())
-    txns = await source.list_transactions(
-        token="tok", customer_id="cust-001", account_id="cust-001-checking"
-    )
+    txns = await source.list_transactions(token="tok", customer_id="cust-001", account_id="cust-001-checking")
     assert len(txns) > 0
     assert all(isinstance(tx, Transaction) for tx in txns)
 
@@ -806,21 +778,15 @@ async def test_fixture_source_returns_transactions_for_known_account() -> None:
 async def test_fixture_source_returns_empty_for_unknown_account() -> None:
     """FixtureTransactionDataSource returns [] for an account with no fixture file."""
     source = FixtureTransactionDataSource(default_fixture_data_dir())
-    txns = await source.list_transactions(
-        token="tok", customer_id="cust-999", account_id="no-such-account"
-    )
+    txns = await source.list_transactions(token="tok", customer_id="cust-999", account_id="no-such-account")
     assert txns == []
 
 
 async def test_fixture_source_caches_after_first_load() -> None:
     """The same list object is returned on repeated calls (in-memory cache)."""
     source = FixtureTransactionDataSource(default_fixture_data_dir())
-    first = await source.list_transactions(
-        token="tok", customer_id="cust-001", account_id="cust-001-checking"
-    )
-    second = await source.list_transactions(
-        token="tok", customer_id="cust-001", account_id="cust-001-checking"
-    )
+    first = await source.list_transactions(token="tok", customer_id="cust-001", account_id="cust-001-checking")
+    second = await source.list_transactions(token="tok", customer_id="cust-001", account_id="cust-001-checking")
     assert first is second
 
 
@@ -828,9 +794,7 @@ async def test_fixture_source_cust003_card_has_no_transactions() -> None:
     """Accounts that generated no transactions return an empty list from the fixture."""
     source = FixtureTransactionDataSource(default_fixture_data_dir())
     # cust-003-card.json exists but has total=0 — produced by the generator.
-    txns = await source.list_transactions(
-        token="tok", customer_id="cust-003", account_id="cust-003-card"
-    )
+    txns = await source.list_transactions(token="tok", customer_id="cust-003", account_id="cust-003-card")
     assert txns == []
 
 
@@ -857,9 +821,7 @@ async def test_integration_walk_full_24_month_window_cust003_checking() -> None:
     last_page = None
 
     for _ in range(1000):  # Safety limit — 813 / 100 = 9 pages.
-        page = await client.get_transactions(
-            _TOKEN_003, "cust-003-checking", limit=page_size, page_key=page_key
-        )
+        page = await client.get_transactions(_TOKEN_003, "cust-003-checking", limit=page_size, page_key=page_key)
         if expected_total is None:
             expected_total = page.page.total
         all_items.extend(page.items)
@@ -883,9 +845,7 @@ async def test_integration_no_duplicates_across_pages_cust003_checking() -> None
     seen_ids: set[str] = set()
 
     for _ in range(1000):
-        page = await client.get_transactions(
-            _TOKEN_003, "cust-003-checking", limit=100, page_key=page_key
-        )
+        page = await client.get_transactions(_TOKEN_003, "cust-003-checking", limit=100, page_key=page_key)
         for tx in page.items:
             assert tx.id not in seen_ids, f"Duplicate id: {tx.id}"
             seen_ids.add(tx.id)
@@ -918,9 +878,7 @@ async def test_integration_cust003_has_pending_transactions_in_unfiltered() -> N
     page_key: str | None = None
     pending_found = False
     for _ in range(1000):
-        page = await client.get_transactions(
-            _TOKEN_003, "cust-003-checking", limit=100, page_key=page_key
-        )
+        page = await client.get_transactions(_TOKEN_003, "cust-003-checking", limit=100, page_key=page_key)
         if any(tx.status == TransactionStatus.PENDING for tx in page.items):
             pending_found = True
             break
@@ -952,8 +910,6 @@ async def test_integration_posted_only_filter_excludes_pending() -> None:
 async def test_integration_txn_only_token_can_paginate_full_window() -> None:
     """A TRANSACTIONS-only token can walk the full 24-month window."""
     client = default_transactions_client(trail=AuditTrail(sink=ListSink()))
-    page = await client.get_transactions(
-        _TOKEN_003_TXN_ONLY, "cust-003-checking", limit=50
-    )
+    page = await client.get_transactions(_TOKEN_003_TXN_ONLY, "cust-003-checking", limit=50)
     assert page.page.total is not None
     assert page.page.total > 0

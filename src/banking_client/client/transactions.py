@@ -171,9 +171,9 @@ class TransactionsClient:
         self._page_size = page_size
 
         _cluster = DataCluster.TRANSACTIONS
-        self.get_transactions = audited(
-            "get_transactions", data_cluster=_cluster, trail=self._trail
-        )(self._get_transactions)
+        self.get_transactions = audited("get_transactions", data_cluster=_cluster, trail=self._trail)(
+            self._get_transactions
+        )
 
     # ------------------------------------------------------------------
     # Private implementation (decorated and exposed as a public callable)
@@ -242,8 +242,7 @@ class TransactionsClient:
         filtered = [
             tx
             for tx in all_txns
-            if _in_date_window(tx, start_time, end_time)
-            and (status is None or tx.status == status)
+            if _in_date_window(tx, start_time, end_time) and (status is None or tx.status == status)
         ]
 
         # 5. Sort deterministically by (transaction_timestamp, id) ascending.

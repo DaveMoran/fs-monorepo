@@ -141,9 +141,7 @@ class FixtureTransactionDataSource:
             self._cache[account_id] = []
             return []
 
-        raw = PaginatedResponse[Transaction].model_validate(
-            json.loads(path.read_text(encoding="utf-8"))
-        )
+        raw = PaginatedResponse[Transaction].model_validate(json.loads(path.read_text(encoding="utf-8")))
         self._cache[account_id] = raw.items
         return raw.items
 
