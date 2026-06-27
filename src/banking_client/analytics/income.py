@@ -56,13 +56,29 @@ from typing import Final
 from banking_client.analytics._recurrence import (
     AMOUNT_TOLERANCE,
     REGULARITY_THRESHOLD,
+)
+from banking_client.analytics._recurrence import (
     _amount_stability as _amount_stability,
+)
+from banking_client.analytics._recurrence import (
     _decimal_median as _decimal_median,
+)
+from banking_client.analytics._recurrence import (
     _detect_cadence as _detect_cadence,
+)
+from banking_client.analytics._recurrence import (
     _is_stable_plateau as _is_stable_plateau,
+)
+from banking_client.analytics._recurrence import (
     _normalize_payee as _normalize_payee,
+)
+from banking_client.analytics._recurrence import (
     _regularity as _regularity,
+)
+from banking_client.analytics._recurrence import (
     _to_monthly as _to_monthly,
+)
+from banking_client.analytics._recurrence import (
     _window_start as _window_start,
 )
 from banking_client.analytics.results import (

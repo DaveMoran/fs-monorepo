@@ -456,7 +456,7 @@ class SpendingService:
             cat_variable[ev.category_id or "UNKNOWN"].append(ev)
 
         outlier_ids: set[str] = set()
-        for cat_id, cat_evs in cat_variable.items():
+        for _cat_id, cat_evs in cat_variable.items():
             outlier_ids.update(_detect_outliers(cat_evs))
 
         # ------------------------------------------------------------------
@@ -484,9 +484,7 @@ class SpendingService:
         cat_summaries: list[SpendCategorySummary] = []
         for cat_id in all_cat_ids:
             cat_evs = [ev for ev in spend_events if (ev.category_id or "UNKNOWN") == cat_id]
-            cat_outlier_total = sum(
-                (ev.amount for ev in cat_evs if ev.txn_id in outlier_ids), Decimal("0")
-            )
+            cat_outlier_total = sum((ev.amount for ev in cat_evs if ev.txn_id in outlier_ids), Decimal("0"))
             cat_total = sum((ev.amount for ev in cat_evs), Decimal("0"))
             cat_avg = _q((cat_total - cat_outlier_total) / Decimal(months))
             cat_summaries.append(
