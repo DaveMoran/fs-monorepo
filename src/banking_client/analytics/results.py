@@ -1,4 +1,4 @@
-"""Result models for the analytics services (income-determination and spending-analysis).
+"""Result models for the analytics services (income-determination, spending-analysis, and savings-capacity).
 
 These are **analytics domain objects** — plain Pydantic models in snake_case, not FDX wire
 types.  They are kept frozen (immutable) so the services can return them as value objects without
@@ -18,6 +18,8 @@ from enum import StrEnum
 from typing import Final
 
 from pydantic import BaseModel, ConfigDict
+
+from banking_client.models.enums import AccountType
 
 
 class PayCadence(StrEnum):
@@ -322,3 +324,189 @@ class SpendingAnalysis(BaseModel):
     category_breakdown: tuple[SpendCategorySummary, ...]
     recurring_costs: tuple[RecurringCost, ...]
     notable_items: tuple[NotableItem, ...]
+
+
+# ===========================================================================
+# Savings-capacity result models
+# ===========================================================================
+
+
+class SavingsCapacityStatus(StrEnum):
+    """Top-level outcome of an ``estimate_savings_capacity`` call.
+
+    See :meth:`~banking_client.analytics.savings.SavingsCapacityService.estimate_savings_capacity`.
+    """
+
+    ESTIMATED = "ESTIMATED"
+    """Both income and spending were analysed; a capacity figure was produced (may be ≤ 0)."""
+    NO_INCOME_DETECTED = "NO_INCOME_DETECTED"
+    """No recurring income was found; capacity is undefined."""
+    INSUFFICIENT_HISTORY = "INSUFFICIENT_HISTORY"
+    """One or both sub-services reported INSUFFICIENT_HISTORY; capacity is undefined."""
+
+
+class SavingsPriority(StrEnum):
+    """The single, product-agnostic action the service recommends.
+
+    **Scope boundary:** This enum contains only debt-vs-save signals and data-quality
+    signals.  It deliberately cannot name a specific security, index, fund, ticker, or
+    investment product — that would constitute licensed financial advice, which this
+    service is not authorised to give.  The value space is closed; Pydantic rejects any
+    string outside these four members, so the constraint is enforced at construction time.
+    """
+
+    PAY_DOWN_HIGH_INTEREST_DEBT = "PAY_DOWN_HIGH_INTEREST_DEBT"
+    """Revolving credit-card debt detected; prioritise paying it down before saving."""
+    BUILD_SAVINGS = "BUILD_SAVINGS"
+    """Positive capacity available and no high-interest debt detected; start saving."""
+    NO_CAPACITY = "NO_CAPACITY"
+    """Spending meets or exceeds income; no surplus available to set aside."""
+    INSUFFICIENT_DATA = "INSUFFICIENT_DATA"
+    """Not enough history to produce a reliable recommendation."""
+
+
+class ReasoningCode(StrEnum):
+    """Machine-readable step labels for the savings-capacity reasoning chain.
+
+    Each step corresponds to one arithmetic or logical operation in the capacity
+    calculation.  Human-readable prose is produced by ``render_reasoning()`` in
+    ``savings.py`` — it lives outside the type so the result model never carries
+    free text.
+    """
+
+    INCOME_BASIS = "INCOME_BASIS"
+    """Estimated monthly income figure used as the starting point."""
+    FIXED_COSTS_BASIS = "FIXED_COSTS_BASIS"
+    """Fixed monthly costs deducted from income."""
+    VARIABLE_SPEND_BASIS = "VARIABLE_SPEND_BASIS"
+    """Typical variable spend deducted from income (outliers already excluded upstream)."""
+    CAPACITY_COMPUTED = "CAPACITY_COMPUTED"
+    """Discretionary capacity = income − fixed − variable."""
+    CONSERVATIVE_HAIRCUT_APPLIED = "CONSERVATIVE_HAIRCUT_APPLIED"
+    """Conservative fraction applied to capacity to produce the recommended set-aside."""
+    NEGATIVE_CAPACITY = "NEGATIVE_CAPACITY"
+    """Spending exceeds income; recommended set-aside is zero."""
+    NO_INCOME = "NO_INCOME"
+    """No recurring income detected; capacity is undefined."""
+    INSUFFICIENT_HISTORY = "INSUFFICIENT_HISTORY"
+    """Insufficient transaction history in one or both sub-services."""
+    HIGH_INTEREST_DEBT_FOUND = "HIGH_INTEREST_DEBT_FOUND"
+    """One or more open credit-card accounts with a revolving balance detected."""
+    DEBT_PRIORITY_SELECTED = "DEBT_PRIORITY_SELECTED"
+    """PAY_DOWN_HIGH_INTEREST_DEBT chosen because card debt overrides saving."""
+    SAVINGS_PRIORITY_SELECTED = "SAVINGS_PRIORITY_SELECTED"
+    """BUILD_SAVINGS chosen; positive capacity, no card debt."""
+
+
+class ReasoningStep(BaseModel):
+    """One step in the savings-capacity reasoning chain.
+
+    The chain is enum-coded so the result model itself never carries free text or
+    investment advice.  Human-readable sentences are produced by ``render_reasoning()``
+    in ``savings.py``.
+
+    Args:
+        code: Which step this is.
+        amount: The monetary figure involved in this step, if any.
+        reference_ids: Account or transaction ids that ground this step in raw data.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    code: ReasoningCode
+    amount: Decimal | None
+    reference_ids: tuple[str, ...]
+
+
+class DebtAccountRef(BaseModel):
+    """Evidence record for one detected high-interest-debt account.
+
+    Only OPEN CREDIT_CARD accounts with a revolving balance are included.  LOAN and
+    INVESTMENT accounts are excluded because no APR data is available — assuming a low-
+    rate mortgage is high-interest debt would produce incorrect guidance.
+
+    Args:
+        account_id: Stable account identifier.
+        account_type: Always ``CREDIT_CARD`` in the current implementation.
+        outstanding_balance: Absolute value of the CURRENT balance (positive number).
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    account_id: str
+    account_type: AccountType
+    outstanding_balance: Decimal
+
+
+# Conservative set-aside fractions (Final so tests can import and assert them)
+CONSERVATIVE_FRACTION: Final[Decimal] = Decimal("0.50")
+"""Fraction of discretionary capacity to recommend when income confidence is HIGH or MEDIUM."""
+LOW_CONFIDENCE_FRACTION: Final[Decimal] = Decimal("0.25")
+"""Reduced fraction used when income confidence is LOW to account for income uncertainty."""
+ROUNDING_INCREMENT: Final[Decimal] = Decimal("25")
+"""Recommended set-aside is floored to this increment for a beginner-friendly round number."""
+
+
+class SavingsCapacityEstimate(BaseModel):
+    """The complete savings-capacity result — the capstone service's headline output.
+
+    Combines the income-determination and spending-analysis results into a single,
+    conservative, fully explainable recommendation.
+
+    **No-advice boundary:** This model is intentionally designed to be unable to carry
+    specific investment advice.  Three structural controls enforce this:
+
+    1. The only recommendation field is ``priority: SavingsPriority``, a closed ``StrEnum``
+       whose four members contain no security identifiers.  Pydantic rejects any value
+       outside that set.
+    2. There is no free-text field anywhere in the model or its sub-models — every field
+       is a number, a datetime, a closed enum, an identifier, or a frozen sub-model with
+       the same property.  The reasoning chain is enum-coded (``ReasoningStep.code``), not
+       prose.
+    3. ``extra="forbid"`` means ``SavingsCapacityEstimate(..., stock_tip="NVDA")`` raises
+       ``ValidationError`` at construction time.
+
+    Args:
+        status: Top-level outcome of the capacity estimation.
+        as_of: The reference date both sub-services were anchored to.
+        lookback_months: Months of history analysed.
+        account_ids: Union of account ids examined by both sub-services.
+        estimated_monthly_income: Primary income source monthly amount, or ``None`` when
+            status is not ``ESTIMATED``.
+        fixed_monthly_costs: Fixed recurring expenses per month (from spending analysis).
+        variable_monthly_spend: Typical variable spend per month, outliers excluded.
+        typical_monthly_spend: ``fixed_monthly_costs + variable_monthly_spend``.
+        discretionary_capacity: ``estimated_monthly_income − typical_monthly_spend``, or
+            ``None`` when income is unknown.  May be negative (spending exceeds income).
+        recommended_monthly_set_aside: Conservative flat amount to set aside; always ≥ 0.
+            Zero when ``discretionary_capacity`` is ≤ 0 or income is unknown.
+        priority: The single product-agnostic action signal (see :class:`SavingsPriority`).
+        income_confidence: Confidence band on the income estimate, or ``None`` when
+            status is not ``ESTIMATED``.
+        high_interest_debt_detected: ``True`` when at least one OPEN CREDIT_CARD account
+            with a revolving balance was found.
+        debt_accounts: Evidence records for each detected high-interest-debt account.
+        supporting_income_transaction_ids: Transaction ids grounding the income figure.
+        supporting_cost_transaction_ids: Transaction ids grounding the cost figures.
+        reasoning: Ordered steps explaining how the recommendation was derived.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    status: SavingsCapacityStatus
+    as_of: datetime
+    lookback_months: int
+    account_ids: tuple[str, ...]
+    estimated_monthly_income: Decimal | None
+    fixed_monthly_costs: Decimal
+    variable_monthly_spend: Decimal
+    typical_monthly_spend: Decimal
+    discretionary_capacity: Decimal | None
+    recommended_monthly_set_aside: Decimal
+    priority: SavingsPriority
+    income_confidence: ConfidenceLevel | None
+    high_interest_debt_detected: bool
+    debt_accounts: tuple[DebtAccountRef, ...]
+    supporting_income_transaction_ids: tuple[str, ...]
+    supporting_cost_transaction_ids: tuple[str, ...]
+    reasoning: tuple[ReasoningStep, ...]
