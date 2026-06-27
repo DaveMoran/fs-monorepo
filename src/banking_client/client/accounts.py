@@ -35,59 +35,30 @@ per call, not two.
 
 from __future__ import annotations
 
-import base64
 from collections.abc import Awaitable, Callable
 from typing import Any
 
 from banking_client.auth.clusters import DataCluster
 from banking_client.auth.guard import Authorizer, default_authorizer
 from banking_client.auth.scope import ConsentScope
-from banking_client.client.errors import AccountNotFoundError, InvalidPageCursorError
+from banking_client.client.errors import AccountNotFoundError, InvalidPageCursorError  # noqa: F401 (re-exported)
+from banking_client.client.pagination import (  # noqa: F401 (_decode_cursor/_encode_cursor re-exported for existing tests)
+    _decode_cursor,
+    _encode_cursor,
+    paginate,
+)
 from banking_client.client.source import AccountDataSource, FixtureAccountDataSource, default_fixture_data_dir
 from banking_client.models.account import Account, Balance
-from banking_client.models.pagination import PageMetadata, PaginatedResponse
+from banking_client.models.pagination import PaginatedResponse
 from common.audit import AuditTrail, audited
-
-
-def _encode_cursor(offset: int) -> str:
-    """Encode a page offset as a URL-safe base64 cursor string.
-
-    Args:
-        offset: Non-negative integer offset into the full result list.
-
-    Returns:
-        URL-safe base64 string (no padding).
-    """
-    return base64.urlsafe_b64encode(str(offset).encode()).decode().rstrip("=")
-
-
-def _decode_cursor(cursor: str, *, for_request: str) -> int:
-    """Decode a URL-safe base64 cursor string to an integer offset.
-
-    Args:
-        cursor: The raw ``page_key`` value from the caller.
-        for_request: Description of the calling operation for error context.
-
-    Returns:
-        Non-negative integer offset.
-
-    Raises:
-        InvalidPageCursorError: If *cursor* is not valid base64 or does not decode to a
-            non-negative integer.
-    """
-    try:
-        # Re-add stripped padding (base64 length must be a multiple of 4).
-        padded = cursor + "=" * (-len(cursor) % 4)
-        decoded = int(base64.urlsafe_b64decode(padded).decode())
-        if decoded < 0:
-            raise ValueError("negative offset")
-        return decoded
-    except Exception as exc:
-        raise InvalidPageCursorError(cursor) from exc
 
 
 def _paginate(items: list[Account], limit: int, page_key: str | None) -> PaginatedResponse[Account]:
     """Slice *items* at the requested cursor position and wrap in a paginated envelope.
+
+    Thin wrapper around :func:`~banking_client.client.pagination.paginate` that fixes the
+    ``for_request`` context string.  Kept here so existing imports of
+    ``banking_client.client.accounts._paginate`` continue to work.
 
     Args:
         items: The full sorted list of accounts to paginate.
@@ -101,21 +72,7 @@ def _paginate(items: list[Account], limit: int, page_key: str | None) -> Paginat
     Raises:
         InvalidPageCursorError: If *page_key* is provided but cannot be decoded.
     """
-    start = _decode_cursor(page_key, for_request="get_accounts") if page_key is not None else 0
-    window = items[start : start + limit]
-
-    next_end = start + limit
-    next_offset: str | None = _encode_cursor(next_end) if next_end < len(items) else None
-    prev_offset: str | None = _encode_cursor(max(0, start - limit)) if start > 0 else None
-
-    return PaginatedResponse[Account](
-        page=PageMetadata(
-            total=len(items),
-            next_offset=next_offset,
-            prev_offset=prev_offset,
-        ),
-        items=window,
-    )
+    return paginate(items, limit, page_key, for_request="get_accounts")
 
 
 class AccountsClient:

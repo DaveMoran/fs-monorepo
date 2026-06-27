@@ -1,4 +1,4 @@
-"""Client-layer error types for the FDX account wrapper.
+"""Client-layer error types for the FDX account and transaction wrappers.
 
 These exceptions represent failure modes that are distinct from auth-layer errors
 (:class:`~common.errors.AuthenticationError`, :class:`~common.errors.AuthorizationError`).
@@ -10,12 +10,16 @@ Taxonomy
   but is absent from the data source. Maps to HTTP 404 in an API context.
 - :class:`InvalidPageCursorError` — the ``page_key`` cursor supplied to a list operation could
   not be decoded. Maps to HTTP 400 in an API context.
+- :class:`InvalidDateRangeError` — ``start_time`` is later than ``end_time`` on a date-filtered
+  list operation. Maps to HTTP 400 in an API context.
 
 All errors subclass :class:`~common.errors.OpenBankingError` so callers can catch the full
 banking-layer error hierarchy with a single ``except OpenBankingError`` clause.
 """
 
 from __future__ import annotations
+
+from datetime import datetime
 
 from common.errors import OpenBankingError
 
@@ -62,3 +66,27 @@ class InvalidPageCursorError(OpenBankingError):
         """
         super().__init__(f"invalid page cursor: {cursor!r}")
         self.cursor = cursor
+
+
+class InvalidDateRangeError(OpenBankingError):
+    """Raised when ``start_time`` is later than ``end_time`` on a date-filtered list operation.
+
+    The date range ``[start_time, end_time]`` is inclusive on both ends.  Swapping the bounds
+    is a caller error — the data layer does not silently reorder them.  Maps to an HTTP 400
+    Bad Request in an API context.
+
+    Attributes:
+        start_time: The ``start_time`` value supplied by the caller.
+        end_time: The ``end_time`` value supplied by the caller.
+    """
+
+    def __init__(self, start_time: datetime, end_time: datetime) -> None:
+        """Build a structured message from the invalid date range.
+
+        Args:
+            start_time: The start of the requested date window.
+            end_time: The end of the requested date window.
+        """
+        super().__init__(f"start_time {start_time.isoformat()!r} is after end_time {end_time.isoformat()!r}")
+        self.start_time = start_time
+        self.end_time = end_time
